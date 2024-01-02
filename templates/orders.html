@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-7">
+        <h1>Orders</h1>
+    </div>
+</div>
+
+<div>
+    {% for order in orders %}
+
+
+    {% include 'components/order.html' %}
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

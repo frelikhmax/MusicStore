@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="row answer">
+    <div class="col-2">
+        <p>order num: {{order.id}}</p>
+        <p>client: {{order.user.username}}</p>
+        <p>date: {{order.date}}</p>
+        {% if order.is_completed %}
+            <p>completed</p>
+        {% else %}
+            <p>in progress</p>
+        {% endif %}
+    </div>
+
+    <div class="col-10" style="display: flex; flex-direction: column;">
+        {% for order_item in order.order_items.all %}
+            <p>{{ order_item.store_item.music_product.name }}, {{order_item.quantity}}</p>
+        {% endfor %}
+    </div>
+</div>

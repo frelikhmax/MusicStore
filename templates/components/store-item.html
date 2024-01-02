@@ -1,0 +1,44 @@
+{% load static %}
+{% if store_item.quantity > 0 %}
+<div class="row question">
+    <div class="col-2">
+        <p>{{store_item.price}}</p>
+
+
+        <div class="btn-group-vertical question-rating vote-section" role="group">
+            {% if user.is_staff %}
+            <div>
+                <p class="rating-counter">{{store_item.quantity}} left</p>
+
+            </div>
+            {% else %}
+            <form method="post" action="{% url 'add_to_cart_index' store_item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary">+</button>
+            </form>
+            <form method="post" action="{% url 'remove_from_cart_index' store_item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">-</button>
+            </form>
+            <div>
+                <p class="rating-counter">{{store_item.quantity}} left</p>
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="col-10">
+        <div class="question-title"><p>{{ store_item.music_product.name }}</p>
+        </div>
+        <div class="question-text">{{store_item.music_product.description}}</div>
+        <div class="row answers-and-tag">
+
+
+        </div>
+    </div>
+
+</div>
+
+{% endif %}

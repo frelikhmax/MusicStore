@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-7">
+        <h1>Cart</h1>
+    </div>
+</div>
+
+{% for order_item in order_items %}
+
+{% include 'components/order-item.html' %}
+
+{% endfor %}
+
+<form method="post" action="{% url 'buy' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary" style="margin-bottom: 20px">Buy</button>
+</form>
+
+{% endblock %}

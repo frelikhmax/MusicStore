@@ -1,0 +1,126 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static '/css/main.css'  %}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top ">
+        <div class="container-fluid">
+            <a class="navbar-brand brand-name" href="{% url 'index' %}">M S</a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="mx-auto navbar-nav mb-md-0">
+
+                </ul>
+                <div class="block-user">
+                    <!--Authorised-->
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav  mb-2 mb-md-0">
+                        <li class="nav-item">
+                            {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" alt="" onerror="this.style.display='none';"
+                                 class="profile-avatar">
+                            {% endif %}
+                        </li>
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <p class="user-name">admin</p>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'orders' %}">orders</a>
+
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+
+                            <p class="user-name">{{ user.first_name }} {{ user.last_name }}</p>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cart' %}">cart</a>
+
+                        </li>
+
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'settings' %}">settings</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">log out</a>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <!--Unauthorised-->
+                    <ul class="navbar-nav  mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">sign up</a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+
+                {% block content %}
+                hey it's empty block
+                {% endblock %}
+
+            </div>
+            <div class="col-4">
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">MusicStore 2023</span>
+    </div>
+</footer>
+
+<script src="{% static '/js/main.js' %}"></script>
+
+</body>
+</html>

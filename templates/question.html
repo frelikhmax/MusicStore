@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html' %}
+{% load django_bootstrap5 %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-7">
+    </div>
+    <div class="col-5">
+        <h4 class="hot-questions-title"><a href="{% url 'hot' %}">hot questions</a></h4>
+    </div>
+</div>
+
+{% include 'components/question-item.html' %}
+
+{% for answer in answers %}
+
+{% include 'components/answer-item.html' %}
+
+{% endfor %}
+
+{% if  user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Answer</button>
+</form>
+{% else %}
+<a href="{% url 'login' %}?continue={{ request.path }}">
+    <button type="submit" class="btn btn-primary">Login to answer</button>
+</a>
+{% endif %}
+
+{% include "components/pagination-item.html" %}
+
+{% endblock %}

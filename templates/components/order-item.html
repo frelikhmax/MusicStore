@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="row question">
+    <div class="col-2">
+        <p>{{order_item.price}}</p>
+        <div class="btn-group-vertical question-rating vote-section" role="group">
+            <form method="post" action="{% url 'add_to_cart' order_item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary">+</button>
+            </form>
+            <form method="post" action="{% url 'remove_from_cart' order_item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">-</button>
+            </form>
+            <div>
+                <p class="rating-counter">{{order_item.quantity}}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-10">
+        <div class="question-title"><p>{{ order_item.store_item.music_product.name }}</p>
+        </div>
+        <div class="question-text">{{order_item.store_item.music_product.description}}</div>
+        <div class="row answers-and-tag">
+
+
+        </div>
+    </div>
+
+</div>
